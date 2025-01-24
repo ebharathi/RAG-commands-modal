@@ -1,0 +1,7 @@
+transformers
+sentence-transformers
+faiss-cpu
+bs4
+requests
+pdfplumber
+python-docx
