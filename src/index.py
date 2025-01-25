@@ -18,9 +18,9 @@ def main():
             break
         
         answers = qa_pipeline.answer_question(question, top_k=3)
-        print("\nResults:")
+        print(f"\nResults:\n{answers}")
         for answer in answers:
-            print(f"File: {answer['file']}")
+            print(f"File: {answer['files']}")
             print(f"Answer: {answer['answer']}")
             print(f"Confidence: {answer['score']:.2f}")
             print("-" * 40)

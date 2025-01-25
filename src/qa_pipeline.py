@@ -7,15 +7,23 @@ class QAPipeline:
 
     def answer_question(self, question, top_k=5):
         search_results = self.retriever.search(question, top_k=top_k)
+        
+        # Combine contexts for more comprehensive answer
+        combined_context = " ".join([result["text"] for result in search_results])
+        
         answers = []
-
         for result in search_results:
-            context = result["text"]
-            answer = self.qa_pipeline(question=question, context=context)
+            # Use individual context for each answer
+            answer = self.qa_pipeline(
+                question=question, 
+                context=result["text"],
+                max_answer_len=100  # Adjust as needed
+            )
+            
             answers.append({
                 "answer": answer["answer"],
                 "score": answer["score"],
-                "file": result["file"]
+                "files": [result["file"]]  # Use 'files' instead of 'file'
             })
-
+        
         return answers
